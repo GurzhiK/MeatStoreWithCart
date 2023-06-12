@@ -4,6 +4,7 @@ from .serializers import ProductSerializer
 from rest_framework import generics
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from rest_framework.permissions import IsAdminUser
 
 
 class ProductList(generics.ListAPIView):
@@ -23,15 +24,18 @@ class ProductDetail(generics.RetrieveAPIView):
 
 
 class ProductCreate(generics.CreateAPIView):
+    permission_classes = [IsAdminUser]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
 
 class ProductUpdate(generics.RetrieveUpdateAPIView):
+    permission_classes = [IsAdminUser]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
 
 class ProductDelete(generics.DestroyAPIView):
+    permission_classes = [IsAdminUser]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
